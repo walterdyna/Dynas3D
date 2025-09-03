@@ -3,59 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynas3D - Cálculo de Impressão</title>
-  <link rel="stylesheet" href="/styles.css">
+  <title>Dyna3D - Impressão 3D Profissional</title>
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <img src="logo.png" alt="Dynas3D Logo">
-    </div>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo">Dyna3D</div>
     <nav>
-      <a href="#calc">Calculadora</a>
-      <a href="#sobre">Sobre</a>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#calculadora">Calculadora</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
     </nav>
   </header>
 
-  <section class="hero">
-    <h1>Sistema de Cálculo - Bambu Lab A1</h1>
-    <p>Descubra o custo real e o valor sugerido de suas impressões 3D de forma simples e rápida.</p>
+  <!-- Home -->
+  <section id="home" class="section home">
+    <h1>Bem-vindo à <span>Dyna3D</span></h1>
+    <p>Soluções insanas em impressão 3D com a poderosa <strong>Bambu Lab A1</strong>.</p>
+    <div class="home-imgs">
+      <img src="./A1.png" alt="Bambu Lab A1">
+      <img src="./img3d.png" alt="Impressão 3D">
+    </div>
   </section>
 
-  <main id="calc">
-    <h2>Calculadora de Impressão</h2>
+  <!-- Sobre -->
+  <section id="sobre" class="section">
+    <h2>Sobre Nós</h2>
+    <p>A Dyna3D nasceu com a missão de transformar ideias em realidade através da impressão 3D. 
+    Com tecnologia de ponta, oferecemos qualidade, precisão e personalização em cada projeto.</p>
+  </section>
+
+  <!-- Serviços -->
+  <section id="servicos" class="section">
+    <h2>Serviços</h2>
+    <div class="cards">
+      <div class="card">Protótipos Rápidos</div>
+      <div class="card">Peças Sob Medida</div>
+      <div class="card">Design Personalizado</div>
+    </div>
+  </section>
+
+  <!-- Calculadora -->
+  <section id="calculadora" class="section">
+    <h2>Calculadora de Custos</h2>
     <form id="calcForm">
-      <label>Preço do Filamento (R$/kg):</label>
-      <input type="number" id="precoKg" step="0.01" value="120" required>
+      <label for="filamento">Número de cores (até 99):</label>
+      <input type="number" id="filamento" min="1" max="99" required>
 
-      <label>Quantidade de Filamentos usados:</label>
-      <input type="number" id="filamentos" min="1" max="99" required>
+      <label for="gramas">Gramas de filamento usado:</label>
+      <input type="number" id="gramas" min="1" required>
 
-      <label>Quantidade de Gramas Gastas:</label>
-      <input type="number" id="gramas" step="0.1" required>
-
-      <label>Número de Pranchas/Mesas:</label>
+      <label for="pranchas">Número de pranchas:</label>
       <input type="number" id="pranchas" min="1" required>
 
-      <div id="temposContainer"></div>
+      <div id="tempos"></div>
 
-      <button type="button" onclick="calcular()">Calcular</button>
+      <button type="submit">Calcular</button>
     </form>
-
-    <div id="progress" class="hidden">Calculando...</div>
-    <div id="resultado" class="card hidden"></div>
-  </main>
-
-  <section id="sobre">
-    <h2>Sobre a Dynas3D</h2>
-    <p>A Dynas3D foi criada para simplificar e otimizar o processo de precificação de impressões 3D. 
-       Nosso objetivo é ajudar makers e empresas a terem clareza sobre custos e lucros.</p>
+    <div class="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+    <div id="resultado"></div>
   </section>
 
-  <footer>
-    <p>© 2025 Dynas3D | Criado por Alex</p>
-  </footer>
+  <!-- Contato -->
+  <section id="contato" class="section">
+    <h2>Contato</h2>
+    <p>Entre em contato conosco para transformar sua ideia em realidade.</p>
+    <form class="contato-form">
+      <input type="text" placeholder="Seu nome" required>
+      <input type="email" placeholder="Seu email" required>
+      <textarea placeholder="Mensagem"></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+  </section>
 
-  <script src="script.js"></script>
+  <!-- WhatsApp -->
+  <a href="https://wa.me/5527999647264" class="whatsapp" target="_blank">💬</a>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Dyna3D - Desenvolvido por Walter</p>
+  </footer>
 </body>
 </html>

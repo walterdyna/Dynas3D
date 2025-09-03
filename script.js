@@ -1,58 +1,47 @@
-document.getElementById("pranchas").addEventListener("input", function () {
-  const container = document.getElementById("temposContainer");
-  container.innerHTML = "";
-  const pranchas = parseInt(this.value);
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("calcForm");
+  const pranchasInput = document.getElementById("pranchas");
+  const temposDiv = document.getElementById("tempos");
+  const resultadoDiv = document.getElementById("resultado");
+  const progressBar = document.getElementById("progress-bar");
 
-  for (let i = 1; i <= pranchas; i++) {
-    const label = document.createElement("label");
-    label.textContent = `Tempo da Prancha ${i} (horas):`;
-    const input = document.createElement("input");
-    input.type = "number";
-    input.min = "0";
-    input.step = "0.1";
-    input.required = true;
-    input.id = `tempo${i}`;
-    container.appendChild(label);
-    container.appendChild(input);
-  }
-});
+  // Criar campos de tempo conforme nº de pranchas
+  pranchasInput.addEventListener("input", () => {
+    temposDiv.innerHTML = "";
+    const qtd = parseInt(pranchasInput.value) || 0;
+    for (let i = 1; i <= qtd; i++) {
+      const input = document.createElement("input");
+      input.type = "number";
+      input.placeholder = `Tempo da prancha ${i} (minutos)`;
+      input.min = 1;
+      input.required = true;
+      temposDiv.appendChild(input);
+    }
+  });
 
-function calcular() {
-  const precoKg = parseFloat(document.getElementById("precoKg").value);
-  const filamentos = parseInt(document.getElementById("filamentos").value);
-  const gramas = parseFloat(document.getElementById("gramas").value);
-  const pranchas = parseInt(document.getElementById("pranchas").value);
+  // Cálculo
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-  let tempoTotal = 0;
-  for (let i = 1; i <= pranchas; i++) {
-    tempoTotal += parseFloat(document.getElementById(`tempo${i}`).value);
-  }
+    // Reset progresso
+    progressBar.style.width = "0%";
+    setTimeout(() => (progressBar.style.width = "100%"), 100);
 
-  // Mostrar barra de progresso
-  document.getElementById("progress").classList.remove("hidden");
-  document.getElementById("resultado").classList.add("hidden");
+    const cores = parseInt(document.getElementById("filamento").value);
+    const gramas = parseFloat(document.getElementById("gramas").value);
+    const pranchas = parseInt(pranchasInput.value);
 
-  setTimeout(() => {
-    // Cálculo do custo de filamento
-    const custoFilamento = (gramas / 1000) * precoKg * filamentos;
+    const tempos = [...temposDiv.querySelectorAll("input")].map(inp => parseFloat(inp.value));
+    const totalMin = tempos.reduce((a, b) => a + b, 0);
 
-    // Custo de energia
-    const consumoKwh = 0.15; // kWh por hora
-    const precoKwh = 1.0; // R$ por kWh
-    const custoEnergia = tempoTotal * consumoKwh * precoKwh;
+    // Supondo custo: R$0,20 por grama + R$0,50 por cor + R$0,30 por minuto de energia
+    const custo = (gramas * 0.20) + (cores * 0.5) + (totalMin * 0.30);
+    const sugerido = custo * 1.7;
 
-    const custoTotal = custoFilamento + custoEnergia;
-    const valorSugerido = custoTotal * 1.4; // margem 40%
-
-    const resultado = document.getElementById("resultado");
-    resultado.innerHTML = `
-      <h3>Resultado do Cálculo</h3>
-      <p><strong>Custo com Filamento:</strong> R$ ${custoFilamento.toFixed(2)}</p>
-      <p><strong>Custo com Energia:</strong> R$ ${custoEnergia.toFixed(2)}</p>
-      <p><strong>Custo Total:</strong> R$ ${custoTotal.toFixed(2)}</p>
-      <p><strong>Valor Sugerido de Venda:</strong> R$ ${valorSugerido.toFixed(2)}</p>
+    resultadoDiv.innerHTML = `
+      <h3>Resultados</h3>
+      <p><strong>Custo:</strong> R$ ${custo.toFixed(2)}</p>
+      <p><strong>Valor Sugerido:</strong> R$ ${sugerido.toFixed(2)}</p>
     `;
-    document.getElementById("progress").classList.add("hidden");
-    resultado.classList.remove("hidden");
-  }, 1000); // simulação tempo de cálculo
-}
+  });
+});
