@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynas3D - Cálculo de Impressão</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <img src="logo.png" alt="Dynas3D Logo">
+    </div>
+    <nav>
+      <a href="#calc">Calculadora</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Sistema de Cálculo - Bambu Lab A1</h1>
+    <p>Descubra o custo real e o valor sugerido de suas impressões 3D de forma simples e rápida.</p>
+  </section>
+
+  <main id="calc">
+    <h2>Calculadora de Impressão</h2>
+    <form id="calcForm">
+      <label>Preço do Filamento (R$/kg):</label>
+      <input type="number" id="precoKg" step="0.01" value="120" required>
+
+      <label>Quantidade de Filamentos usados:</label>
+      <input type="number" id="filamentos" min="1" max="99" required>
+
+      <label>Quantidade de Gramas Gastas:</label>
+      <input type="number" id="gramas" step="0.1" required>
+
+      <label>Número de Pranchas/Mesas:</label>
+      <input type="number" id="pranchas" min="1" required>
+
+      <div id="temposContainer"></div>
+
+      <button type="button" onclick="calcular()">Calcular</button>
+    </form>
+
+    <div id="progress" class="hidden">Calculando...</div>
+    <div id="resultado" class="card hidden"></div>
+  </main>
+
+  <section id="sobre">
+    <h2>Sobre a Dynas3D</h2>
+    <p>A Dynas3D foi criada para simplificar e otimizar o processo de precificação de impressões 3D. 
+       Nosso objetivo é ajudar makers e empresas a terem clareza sobre custos e lucros.</p>
+  </section>
+
+  <footer>
+    <p>© 2025 Dynas3D | Criado por Alex</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
